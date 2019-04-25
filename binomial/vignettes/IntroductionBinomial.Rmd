@@ -1,0 +1,84 @@
+---
+title: "Getting started with binomial package"
+author: "Yilin Li"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to binomial package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+library(binomial)
+library(ggplot2)
+```
+
+## Binomial
+
+The package `"binomial"` is an implementation for the basic statistics for a random from binomial distribution, and to visualize the relative plots (probability and cumulative distribution).
+
+
+## Creating a `binvar`
+
+The first step is to create a `"binvar"` object with the function `bin_variable()`:
+
+```{r}
+binvar <- bin_variable(10, 0.3)
+binvar
+```
+
+`bin_variable()` creates a binomial variable with trials and prob as input and its type is the `"binvar"`, that is, a `binomial random variable object.`
+
+The `"binvar"` have 3 methods, like `prinr`,`summary`,`print.summary` where you can check the relaetd statistics (e.g. mean, variance, kurtosis). 
+For example, the `summary()` function gives you a nice table of statistics:
+
+```{r}
+summary(binvar)
+```
+
+
+
+## Show the probability
+
+In this package, you can use the function `bin_probablity()` to get the probablity of one or more `success` given number of `trials`. Or the `bin_choose()` to get the number of possible combinations
+
+
+```{r}
+bin_choose(5, 3)
+bin_probability(1:5, 10, 0.3)
+```
+
+
+## Plot of relative distributions and cumulatives
+
+The output of `bin_distribution()` will be an object of class 
+`"bindis"`, which will contain the data.frame of success number and its corresponding probability with method plot:
+
+```{r}
+# plotting binomial probability distribution
+dis1 <- bin_distribution(trials = 5, prob = 0.5)
+dis1
+```
+You can use the function `plot()` to create a graphic:
+
+```{r, fig.show='hold'}
+plot(dis1)
+```
+
+The output of `bin_cumulative()` will be an object of class 
+`"bindis"`, which will contain the data.frame of success number and its corresponding probability as well as cumulative probability with method plot:
+
+```{r}
+# plotting binomial probability distribution
+dis2 <- bin_cumulative(trials = 5, prob = 0.5)
+dis2
+```
+You can use the function `plot()` to create a graphic 
+
+```{r, fig.show='hold'}
+plot(dis2)
+```
